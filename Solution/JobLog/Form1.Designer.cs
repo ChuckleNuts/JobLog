@@ -43,7 +43,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmbOpenClosed = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtNamed = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtContact = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -56,20 +56,20 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.appData = new JobLog.appData();
-            this.jobInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.jobInfoTableAdapter = new JobLog.appDataTableAdapters.jobInfoTableAdapter();
             this.jobIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openClosedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contactDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.jobInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.appData = new JobLog.appData();
+            this.jobInfoTableAdapter = new JobLog.appDataTableAdapters.jobInfoTableAdapter();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.jobInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appData)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -99,29 +99,33 @@
             // 
             this.tsmNew.Name = "tsmNew";
             this.tsmNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.tsmNew.Size = new System.Drawing.Size(180, 22);
+            this.tsmNew.Size = new System.Drawing.Size(149, 22);
             this.tsmNew.Text = "New";
+            this.tsmNew.Click += new System.EventHandler(this.tsmNew_Click);
             // 
             // tsnSave
             // 
             this.tsnSave.Name = "tsnSave";
             this.tsnSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.tsnSave.Size = new System.Drawing.Size(180, 22);
+            this.tsnSave.Size = new System.Drawing.Size(149, 22);
             this.tsnSave.Text = "Save";
+            this.tsnSave.Click += new System.EventHandler(this.tsnSave_Click);
             // 
             // tsmEdit
             // 
             this.tsmEdit.Name = "tsmEdit";
             this.tsmEdit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.tsmEdit.Size = new System.Drawing.Size(180, 22);
+            this.tsmEdit.Size = new System.Drawing.Size(149, 22);
             this.tsmEdit.Text = "Edit";
+            this.tsmEdit.Click += new System.EventHandler(this.tsmEdit_Click);
             // 
             // tsmDelete
             // 
             this.tsmDelete.Name = "tsmDelete";
             this.tsmDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.tsmDelete.Size = new System.Drawing.Size(180, 22);
+            this.tsmDelete.Size = new System.Drawing.Size(149, 22);
             this.tsmDelete.Text = "Delete";
+            this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -136,21 +140,21 @@
             // tsmCheckForUpdate
             // 
             this.tsmCheckForUpdate.Name = "tsmCheckForUpdate";
-            this.tsmCheckForUpdate.Size = new System.Drawing.Size(180, 22);
+            this.tsmCheckForUpdate.Size = new System.Drawing.Size(165, 22);
             this.tsmCheckForUpdate.Text = "Check for update";
             // 
             // tsmHelp
             // 
             this.tsmHelp.Name = "tsmHelp";
             this.tsmHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.tsmHelp.Size = new System.Drawing.Size(180, 22);
+            this.tsmHelp.Size = new System.Drawing.Size(165, 22);
             this.tsmHelp.Text = "Help";
             // 
             // tsmAbout
             // 
             this.tsmAbout.Name = "tsmAbout";
             this.tsmAbout.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.tsmAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmAbout.Size = new System.Drawing.Size(165, 22);
             this.tsmAbout.Text = "About";
             // 
             // exitToolStripMenuItem
@@ -165,7 +169,7 @@
             // 
             this.tsmExit.Name = "tsmExit";
             this.tsmExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
-            this.tsmExit.Size = new System.Drawing.Size(180, 22);
+            this.tsmExit.Size = new System.Drawing.Size(129, 22);
             this.tsmExit.Text = "Exit";
             // 
             // label1
@@ -181,6 +185,7 @@
             // txtJobId
             // 
             this.txtJobId.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.jobInfoBindingSource, "JobId", true));
+            this.txtJobId.Enabled = false;
             this.txtJobId.Location = new System.Drawing.Point(78, 33);
             this.txtJobId.Name = "txtJobId";
             this.txtJobId.Size = new System.Drawing.Size(150, 20);
@@ -237,13 +242,13 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Name:";
             // 
-            // txtNamed
+            // txtName
             // 
-            this.txtNamed.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.jobInfoBindingSource, "Name", true));
-            this.txtNamed.Location = new System.Drawing.Point(78, 73);
-            this.txtNamed.Name = "txtNamed";
-            this.txtNamed.Size = new System.Drawing.Size(340, 20);
-            this.txtNamed.TabIndex = 8;
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.jobInfoBindingSource, "Name", true));
+            this.txtName.Location = new System.Drawing.Point(78, 73);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(340, 20);
+            this.txtName.TabIndex = 8;
             // 
             // label5
             // 
@@ -267,17 +272,18 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 113);
+            this.label6.Location = new System.Drawing.Point(12, 115);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 20);
+            this.label6.Size = new System.Drawing.Size(47, 20);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Name:";
+            this.label6.Text = "Note:";
             // 
             // txtNote
             // 
             this.txtNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNote.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.jobInfoBindingSource, "Note", true));
+            this.txtNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNote.Location = new System.Drawing.Point(78, 115);
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(664, 163);
@@ -293,6 +299,7 @@
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -303,6 +310,7 @@
             this.btnEdit.TabIndex = 14;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
@@ -313,6 +321,7 @@
             this.btnSave.TabIndex = 15;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnNew
             // 
@@ -323,6 +332,7 @@
             this.btnNew.TabIndex = 16;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // label7
             // 
@@ -342,6 +352,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(340, 20);
             this.txtSearch.TabIndex = 18;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // panel1
             // 
@@ -370,23 +381,9 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(726, 230);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // appData
-            // 
-            this.appData.DataSetName = "appData";
-            this.appData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // jobInfoBindingSource
-            // 
-            this.jobInfoBindingSource.DataMember = "jobInfo";
-            this.jobInfoBindingSource.DataSource = this.appData;
-            // 
-            // jobInfoTableAdapter
-            // 
-            this.jobInfoTableAdapter.ClearBeforeFill = true;
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // jobIdDataGridViewTextBoxColumn
             // 
@@ -436,6 +433,20 @@
             this.noteDataGridViewTextBoxColumn.Name = "noteDataGridViewTextBoxColumn";
             this.noteDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // jobInfoBindingSource
+            // 
+            this.jobInfoBindingSource.DataMember = "jobInfo";
+            this.jobInfoBindingSource.DataSource = this.appData;
+            // 
+            // appData
+            // 
+            this.appData.DataSetName = "appData";
+            this.appData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // jobInfoTableAdapter
+            // 
+            this.jobInfoTableAdapter.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -452,7 +463,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtContact);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtNamed);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbOpenClosed);
             this.Controls.Add(this.label3);
@@ -469,8 +480,8 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.jobInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,7 +501,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbOpenClosed;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtNamed;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtContact;
         private System.Windows.Forms.Label label6;

@@ -18,6 +18,100 @@ namespace JobLog {
             // TODO: This line of code loads data into the 'appData.jobInfo' table. You can move, or remove it, as needed.
             this.jobInfoTableAdapter.Fill(this.appData.jobInfo);
 
+            Edit(false);
+        }
+
+        private void Edit(bool value) {
+            txtDate.Enabled = value;
+            cmbOpenClosed.Enabled = value;
+            txtName.Enabled = value;
+            txtContact.Enabled = value;
+            txtNote.Enabled = value;
+        }
+
+        private void btnNew_Click(object sender, EventArgs e) {
+            try {
+                Edit(true);
+                appData.jobInfo.AddjobInfoRow(appData.jobInfo.NewjobInfoRow());
+                jobInfoBindingSource.MoveLast();
+                txtDate.Focus();
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                appData.jobInfo.RejectChanges();
+            }
+        }
+
+        private void tsmNew_Click(object sender, EventArgs e) {
+            try {
+                Edit(true);
+                appData.jobInfo.AddjobInfoRow(appData.jobInfo.NewjobInfoRow());
+                jobInfoBindingSource.MoveLast();
+                txtDate.Focus();
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                appData.jobInfo.RejectChanges();
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e) {
+            try {
+                Edit(false);
+                jobInfoBindingSource.EndEdit();
+                jobInfoTableAdapter.Update(appData.jobInfo);
+                dataGridView1.Refresh();
+                txtDate.Focus();
+                MessageBox.Show("Your data has been successfully saved.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                appData.jobInfo.RejectChanges();
+            }
+        }
+
+        private void tsnSave_Click(object sender, EventArgs e) {
+            try {
+                Edit(false);
+                jobInfoBindingSource.EndEdit();
+                jobInfoTableAdapter.Update(appData.jobInfo);
+                dataGridView1.Refresh();
+                txtDate.Focus();
+                MessageBox.Show("Your data has been successfully saved.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                appData.jobInfo.RejectChanges();
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e) {
+            Edit(true);
+            txtDate.Focus();
+        }
+
+        private void tsmEdit_Click(object sender, EventArgs e) {
+            Edit(true);
+            txtDate.Focus();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e) {
+            if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                jobInfoBindingSource.RemoveCurrent();
+        }
+
+        private void tsmDelete_Click(object sender, EventArgs e) {
+            if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                jobInfoBindingSource.RemoveCurrent();
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Delete)
+                if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    jobInfoBindingSource.RemoveCurrent();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e) {
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+                jobInfoBindingSource.Filter = string.Format("Name LIKE '*{0}*' OR Conatct = '{1}'", txtName.Text, txtContact.Text);
+            else
+                jobInfoBindingSource.Filter = string.Empty;
         }
     }
 }

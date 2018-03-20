@@ -409,10 +409,10 @@ namespace JobLog {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public jobInfoRow AddjobInfoRow(int JobId, string Date, string _Open_Closed, string Name, string Contact, string Note) {
+            public jobInfoRow AddjobInfoRow(string Date, string _Open_Closed, string Name, string Contact, string Note) {
                 jobInfoRow rowjobInfoRow = ((jobInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        JobId,
+                        null,
                         Date,
                         _Open_Closed,
                         Name,
@@ -474,6 +474,8 @@ namespace JobLog {
                 base.Columns.Add(this.columnNote);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnJobId}, true));
+                this.columnJobId.AutoIncrement = true;
+                this.columnJobId.AutoIncrementSeed = 1;
                 this.columnJobId.AllowDBNull = false;
                 this.columnJobId.Unique = true;
                 this.columnDate.MaxLength = 15;
