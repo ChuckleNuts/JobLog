@@ -117,22 +117,29 @@ namespace JobLog {
         //
         // Search database 
         //
-        // TODO - make work
         private void button1_Click(object sender, EventArgs e) {
             if (!string.IsNullOrEmpty(txtSearch.Text)) {
-                (dataGridView1.DataSource as System.Data.DataTable).DefaultView.RowFilter = string.Empty;
+                jobInfoBindingSource.Filter = string.Format("Name='{0}'", txtSearch.Text);
             } else {
-                (dataGridView1.DataSource as System.Data.DataTable).DefaultView.RowFilter = string.Format("Name = '{0}'", txtSearch.Text);
+                jobInfoBindingSource.Filter = string.Empty;
             }
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
                 if (!string.IsNullOrEmpty(txtSearch.Text)) {
-                    (dataGridView1.DataSource as System.Data.DataTable).DefaultView.RowFilter = string.Empty;
+                    jobInfoBindingSource.Filter = string.Format("Name='{0}'", txtSearch.Text);
                 } else {
-                    (dataGridView1.DataSource as System.Data.DataTable).DefaultView.RowFilter = string.Format("Name = '{0}'", txtSearch.Text);
+                    jobInfoBindingSource.Filter = string.Empty;
                 }
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e) {
+            if (!string.IsNullOrEmpty(txtSearch.Text)) {
+                jobInfoBindingSource.Filter = string.Format("Name LIKE '{0}%' OR Contact LIKE '{1}%'", txtSearch.Text, txtSearch.Text);
+            } else {
+                jobInfoBindingSource.Filter = string.Empty;
             }
         }
     }
