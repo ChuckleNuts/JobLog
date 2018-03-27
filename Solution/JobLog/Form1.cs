@@ -21,7 +21,7 @@ namespace JobLog {
 
             Edit(false);
 
-            this.Text = "JSR Job Logs " + Application.ProductVersion;
+            this.Text = "JSR Job Logs - v" + version;
         }
 
         private void Edit(bool value) {
@@ -179,6 +179,17 @@ namespace JobLog {
                         MessageBox.Show("You are running the latest version.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+            }
+        }
+
+        // 
+        //
+        //
+        private static Version version = new Version(Application.ProductVersion);
+
+        public static Version Version {
+            get {
+                return version;
             }
         }
     }
