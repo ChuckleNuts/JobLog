@@ -106,17 +106,23 @@ namespace JobLog {
         private void btnDelete_Click(object sender, EventArgs e) {
             if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 jobInfoBindingSource.RemoveCurrent();
+                jobInfoBindingSource.EndEdit();
+                jobInfoTableAdapter.Update(appData.jobInfo);
         }
 
         private void tsmDelete_Click(object sender, EventArgs e) {
             if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 jobInfoBindingSource.RemoveCurrent();
+                jobInfoBindingSource.EndEdit();
+                jobInfoTableAdapter.Update(appData.jobInfo);
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Delete)
                 if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     jobInfoBindingSource.RemoveCurrent();
+                    jobInfoBindingSource.EndEdit();
+                    jobInfoTableAdapter.Update(appData.jobInfo);
         }
         //
         // Search database 
@@ -175,9 +181,9 @@ namespace JobLog {
                             Application.Restart();
                         } catch (Exception ex) {
                             MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        } else {
-                        MessageBox.Show("You are running the latest version.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                        } 
+                } else {
+                    MessageBox.Show("You are running the latest version.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
