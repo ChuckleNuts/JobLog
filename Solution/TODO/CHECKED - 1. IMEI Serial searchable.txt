@@ -1,0 +1,3 @@
+Make an IMEI/Serial column that is searchable
+
+Be able to search for job entries based on phone IMEI

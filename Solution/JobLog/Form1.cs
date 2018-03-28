@@ -141,7 +141,7 @@ namespace JobLog {
 
         private void txtSearch_TextChanged(object sender, EventArgs e) {
             if (!string.IsNullOrEmpty(txtSearch.Text)) {
-                jobInfoBindingSource.Filter = string.Format("Name LIKE '{0}%' OR Contact LIKE '{1}%' OR Note LIKE '{2}%'", txtSearch.Text, txtSearch.Text, txtSearch);
+                jobInfoBindingSource.Filter = string.Format("Name LIKE '{0}%' OR Contact LIKE '{1}%' OR IMEI LIKE '{2}%'", txtSearch.Text, txtSearch.Text, txtSearch.Text);
             } else {
                 jobInfoBindingSource.Filter = string.Empty;
             }
@@ -181,9 +181,8 @@ namespace JobLog {
                 }
             }
         }
-
         // 
-        //
+        // Shows version number on form
         //
         private static Version version = new Version(Application.ProductVersion);
 

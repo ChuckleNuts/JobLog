@@ -1,0 +1,1 @@
+Make form which is able to keep track of stock

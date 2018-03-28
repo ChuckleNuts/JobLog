@@ -1,0 +1,3 @@
+Be able to track stock after every repair.
+
+If a part is ticked been used it will be subtracted from the inventory
