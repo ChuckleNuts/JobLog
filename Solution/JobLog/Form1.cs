@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace JobLog {
+
     public partial class Form1 : Form {
         public Form1() {
             InitializeComponent();
@@ -25,7 +26,6 @@ namespace JobLog {
         }
 
         private void Edit(bool value) {
-            txtDate.Enabled = value;
             cmbOpenClosed.Enabled = value;
             txtName.Enabled = value;
             txtContact.Enabled = value;
@@ -36,18 +36,21 @@ namespace JobLog {
         // Create new job 
         //
         private void btnNew_Click(object sender, EventArgs e) {
+
             try {
                 Edit(true);
                 appData.jobInfo.AddjobInfoRow(appData.jobInfo.NewjobInfoRow());
                 jobInfoBindingSource.MoveLast();
-                txtDate.Focus();
+                txtName.Focus();
+                txtDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+                cmbOpenClosed.Text = "Open";
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 appData.jobInfo.RejectChanges();
             }
         }
 
-        private void tsmNew_Click(object sender, EventArgs e) {
+        private void TsmNew(object sender, EventArgs e) {
             try {
                 Edit(true);
                 appData.jobInfo.AddjobInfoRow(appData.jobInfo.NewjobInfoRow());
@@ -75,7 +78,7 @@ namespace JobLog {
             }
         }
 
-        private void tsnSave_Click(object sender, EventArgs e) {
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
             try {
                 Edit(false);
                 jobInfoBindingSource.EndEdit();
@@ -106,45 +109,27 @@ namespace JobLog {
         private void btnDelete_Click(object sender, EventArgs e) {
             if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 jobInfoBindingSource.RemoveCurrent();
-                jobInfoBindingSource.EndEdit();
-                jobInfoTableAdapter.Update(appData.jobInfo);
+            jobInfoBindingSource.EndEdit();
+            jobInfoTableAdapter.Update(appData.jobInfo);
         }
 
-        private void tsmDelete_Click(object sender, EventArgs e) {
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e) {
             if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 jobInfoBindingSource.RemoveCurrent();
-                jobInfoBindingSource.EndEdit();
-                jobInfoTableAdapter.Update(appData.jobInfo);
+            jobInfoBindingSource.EndEdit();
+            jobInfoTableAdapter.Update(appData.jobInfo);
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Delete)
                 if (MessageBox.Show("Are you sure you want to delete this record?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     jobInfoBindingSource.RemoveCurrent();
-                    jobInfoBindingSource.EndEdit();
-                    jobInfoTableAdapter.Update(appData.jobInfo);
+            jobInfoBindingSource.EndEdit();
+            jobInfoTableAdapter.Update(appData.jobInfo);
         }
         //
         // Search database 
         //
-        private void button1_Click(object sender, EventArgs e) {
-            if (!string.IsNullOrEmpty(txtSearch.Text)) {
-                jobInfoBindingSource.Filter = string.Format("Name='{0}'", txtSearch.Text);
-            } else {
-                jobInfoBindingSource.Filter = string.Empty;
-            }
-        }
-
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyCode == Keys.Enter) {
-                if (!string.IsNullOrEmpty(txtSearch.Text)) {
-                    jobInfoBindingSource.Filter = string.Format("Name='{0}'", txtSearch.Text);
-                } else {
-                    jobInfoBindingSource.Filter = string.Empty;
-                }
-            }
-        }
-
         private void txtSearch_TextChanged(object sender, EventArgs e) {
             if (!string.IsNullOrEmpty(txtSearch.Text)) {
                 jobInfoBindingSource.Filter = string.Format("Name LIKE '{0}%' OR Contact LIKE '{1}%' OR IMEI LIKE '{2}%'", txtSearch.Text, txtSearch.Text, txtSearch.Text);
@@ -155,8 +140,7 @@ namespace JobLog {
         //
         // Check for updates
         //
-        private void tsmCheckForUpdate_Click(object sender, EventArgs e) {
-
+        private void checkForUpdatesToolStripMenuItem1_Click(object sender, EventArgs e) {
             UpdateCheckInfo info;
 
             if (ApplicationDeployment.IsNetworkDeployed) {
@@ -181,7 +165,7 @@ namespace JobLog {
                             Application.Restart();
                         } catch (Exception ex) {
                             MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        } 
+                        }
                 } else {
                     MessageBox.Show("You are running the latest version.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -196,6 +180,40 @@ namespace JobLog {
             get {
                 return version;
             }
+        }
+        //
+        // Exits Application
+        //
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+        //
+        // Cut
+        // 
+        // TODO - Fix
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e) {
+            TextBox txtBox = this.ActiveControl as TextBox;
+            if (txtBox.SelectedText != string.Empty)
+                Clipboard.SetData(DataFormats.Text, txtBox.SelectedText);
+            txtBox.SelectedText = string.Empty;
+        }
+        //
+        // Copy
+        //
+        // TODO - Fix
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e) {
+            TextBox txtBox = this.ActiveControl as TextBox;
+            if (txtBox.SelectedText != string.Empty)
+                Clipboard.SetData(DataFormats.Text, txtBox.SelectedText);
+
+        }
+        //
+        // Paste
+        //
+        // TODO - Fix
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
+            int position = ((TextBox)this.ActiveControl).SelectionStart;
+            this.ActiveControl.Text = this.ActiveControl.Text.Insert(position, Clipboard.GetText());
         }
     }
 }
